@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lab_02/employee.dart';
+import 'package:intl/intl.dart';
 
 void main() {
   runApp(
@@ -42,20 +43,79 @@ class Home extends StatelessWidget {
       ),
       // body is the majority of the screen.
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         // crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Container(
-            child: Card(
-              child: Container(
-                width: double.infinity,
-                child: Text('Demo Title'),
-              ),
-            ),
+          // Container(
+          //   child: Card(
+          //     child: Container(
+          //       width: double.infinity,
+          //       child: Text('Demo Title'),
+          //     ),
+          //   ),
+          // ),
+          Card(
+            elevation: 5,
+            child: Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: <Widget>[
+                    TextField(
+                      decoration: InputDecoration(labelText: 'Employee'),
+                    ),
+                    TextField(decoration: InputDecoration(labelText: 'Salary')),
+                    TextButton(
+                      child: Text('Add employee salary'),
+                      style: TextButton.styleFrom(
+                        primary: Colors.red, // foreground
+                      ),
+                      onPressed: () {/*what happened when tapped...*/},
+                    )
+                  ],
+                )),
           ),
           Column(
               children: employees.map((e) {
-            return Card(child: Text(e.title));
+            return Card(
+                child: Row(
+              children: <Widget>[
+                Container(
+                  margin: EdgeInsets.symmetric(vertical: 10, horizontal: 10),
+                  padding: EdgeInsets.all(15),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.pink, width: 2)),
+                  child: Text(
+                    ' ${e.salary} VND',
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 15,
+                      color: Colors.pink,
+                    ),
+                  ),
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      e.title.toString().toUpperCase(),
+                      style: TextStyle(
+                        fontSize: 15,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.black,
+                      ),
+                    ),
+                    Text(
+                      DateFormat('dd/MM/yyyy').format(e.date),
+                      style: TextStyle(
+                        fontSize: 10,
+                        color: Colors.grey,
+                      ),
+                    ),
+                  ],
+                )
+              ],
+            ));
           }).toList())
         ],
       ),
